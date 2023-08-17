@@ -25,12 +25,13 @@
 ## Screenshot
 
 ## Links
-Github Repository:
-Heroku Deployment:
+- Github Repository: https://github.com/mcramileux/mcramileux-final-project
+- Heroku Deployment:
 
 ## References
-[Unsplash.com](https://unsplash.com/photos/1oKxSKSOowE) for background photo
-[Material UI](https://mui.com/material-ui/getting-started/installation/) UI Component library 
+- [Unsplash.com](https://unsplash.com/photos/1oKxSKSOowE) for background photo
+- [Material UI](https://mui.com/material-ui/getting-started/installation/) UI Component library 
+- [Rapid API](https://rapidapi.com/Glavier/api/spotify23/) Music API ----STILL TO TEST
 
 ## Contributions
 Contributions to this project won't be accepted as this is the reflection of the author's work hence the following questions and answers. Furthermore, forking or creating a pull request is acceptable.

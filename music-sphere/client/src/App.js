@@ -8,9 +8,9 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import SearchAlbums from './pages/SearchAlbums';
-import FavoriteAlbums from './pages/FavoriteAlbums';
-import MembersProfile from './pages/MembersProfile';
+import SearchAlbums from '../src/pages/SearchAlbums';
+import FavoriteAlbums from '../src/pages/FavoriteAlbums';
+import UserProfile from '..src/pages/UserProfile';
 import Navbar from './components/Navbar';
 
 // Construct our main GraphQL API endpoint
@@ -26,7 +26,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : '', //research about this
     },
   };
 });
@@ -46,11 +46,11 @@ function App() {
             <Routes>
               <Route 
                 path='/' 
-                element={<SearchBooks />} 
+                element={<SearchAlbums />} 
               />
               <Route 
-                path='/saved' 
-                element={<SavedBooks />} 
+                path='/favorite' 
+                element={<FavoriteAlbums />} 
               />
               <Route 
                 path='*'

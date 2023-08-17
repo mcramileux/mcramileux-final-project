@@ -41,12 +41,12 @@
 //         return { token, user };
 //       },
 
-//       saveBook: async (parent, { bookData }, context) => {
+//       faveAlbum: async (parent, { albumData }, context) => {
 //         // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
 //         if (context.user) {
 //           const updatedUser = await User.findOneAndUpdate(
 //             { _id: context.user._id },
-//             { $addToSet: { savedBooks: bookData } },
+//             { $addToSet: { favoriteAlbums: albumData } },
 //             { new: true, runValidators: true }
 //           );
   
@@ -56,12 +56,12 @@
 //         throw new AuthenticationError("You need to be logged in!");
 //       },
 
-//       // Set up mutation so a logged in user can only remove the book and no one else's
-//       removeBook: async (parent, { bookId }, context) => {
+//       // Set up mutation so a logged in user can only remove the album and no one else's
+//       removeAlbum: async (parent, { albumId }, context) => {
 //         if (context.user) {
 //           const updatedUser = await User.findOneAndUpdate(
 //             { _id: context.user._id },
-//             { $pull: { savedBooks: { bookId } } },
+//             { $pull: { favoriteAlbums: { albumId } } },
 //             { new: true }
 //           );
 //           return updatedUser;

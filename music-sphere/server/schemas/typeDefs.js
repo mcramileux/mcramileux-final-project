@@ -8,12 +8,12 @@
 // type Mutation {
 //     login(email: String!, password: String!): Auth
 //     addUser(username: String!, email: String!, password: String!): Auth
-//     saveBook(bookData: BookInput!): User
-//     removeBook(bookId: String!): User
+//     faveAlbum(albumData: AlbumInput!): User
+//     removeAlbum(albumId: String!): User
 // }
 
-// input BookInput{
-//     bookId: String!
+// input AlbumInput{
+//     albumId: String!
 //     authors: [String]
 //     description: String
 //     title: String
@@ -24,12 +24,12 @@
 //     _id: ID!
 //     username: String!
 //     email: String!
-//     bookCount: Int
-//     savedBooks: [Book]
+//     albumCount: Int
+//     savedAlbums: [Album]
 // }
 
-// type Book {
-//     bookId: String!
+// type Album {
+//     albumId: String!
 //     authors: [String]
 //     description: String
 //     title: String!

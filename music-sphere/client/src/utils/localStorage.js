@@ -1,30 +1,30 @@
-export const getSavedBookIds = () => {
-    const savedBookIds = localStorage.getItem('saved_books')
-      ? JSON.parse(localStorage.getItem('saved_books'))
+export const getFavoriteAlbumIds = () => {
+    const favoriteAlbumIds = localStorage.getItem('favorite_albums')
+      ? JSON.parse(localStorage.getItem('favorite_albums'))
       : [];
   
-    return savedBookIds;
+    return favoriteAlbumIds;
   };
   
-  export const saveBookIds = (bookIdArr) => {
-    if (bookIdArr.length) {
-      localStorage.setItem('saved_books', JSON.stringify(bookIdArr));
+  export const FavoriteAlbumIds = (albumIdArr) => {
+    if (albumIdArr.length) {
+      localStorage.setItem('favorite_albums', JSON.stringify(albumIdArr));
     } else {
-      localStorage.removeItem('saved_books');
+      localStorage.removeItem('favorite_albums');
     }
   };
   
-  export const removeBookId = (bookId) => {
-    const savedBookIds = localStorage.getItem('saved_books')
-      ? JSON.parse(localStorage.getItem('saved_books'))
+  export const removeAlbumId = (albumId) => {
+    const favoriteAlbumIds = localStorage.getItem('favorite_albums')
+      ? JSON.parse(localStorage.getItem('favorite_albums'))
       : null;
   
-    if (!savedBookIds) {
+    if (!favoriteAlbumIds) {
       return false;
     }
   
-    const updatedSavedBookIds = savedBookIds?.filter((savedBookId) => savedBookId !== bookId);
-    localStorage.setItem('saved_books', JSON.stringify(updatedSavedBookIds));
+    const updatedFavoriteAlbumIds = FavoriteAlbumIds?.filter((FavoriteAlbumId) => FavoriteAlbumIds !== albumId);
+    localStorage.setItem('favorite_albums', JSON.stringify(updatedFavoriteAlbumIds));
   
     return true;
   };

@@ -11,9 +11,9 @@ import {
   Typography,
   Box,
 } from '@mui/material';
-import SignUpForm from './SignupForm';
-import LoginForm from './LoginForm';
-import ProfilePage from './ProfilePage';
+import SignUpForm from '../components/SignupForm';
+import LoginForm from '../components/LoginForm';
+import UserPage from '../components/UserPage';
 
 import Auth from '../utils/auth';
 
@@ -41,7 +41,7 @@ const AppNavbar = () => {
               {Auth.loggedIn() ? (
                 <>
                   <Button color='inherit' component={Link} to='/saved'>
-                    See Your Albums
+                    See Your Favorite Albums
                   </Button>
                   <Button color='inherit' onClick={Auth.logout}>
                     Logout

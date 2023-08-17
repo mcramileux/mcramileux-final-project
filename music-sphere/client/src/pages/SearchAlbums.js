@@ -1,39 +1,39 @@
-//TO EDIT
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
-  Jumbotron,
   Container,
-  Col,
-  Form,
+  Grid,
+  TextField,
   Button,
   Card,
-  CardColumns,
-} from "react-bootstrap";
+  CardContent,
+  CardMedia,
+  Typography,
+} from '@mui/material';
 
-import Auth from "../utils/auth";
-import { saveBookIds, getSavedBookIds } from "../utils/localStorage";
+import Auth from '../utils/auth';
+import { searchSpotifyAlbums } from '../utils/API';
+import { faveAlbumIds, getfavoriteAlbumIds } from '../utils/localStorage';
 
 // import Apollo hook and mutation
-import { SAVE_BOOK } from "../utils/mutations";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from '@apollo/client';
+import { FAVE_ALBUM } from '../utils/mutations';
 
-const SearchBooks = () => {
+const SearchAlbums = () => {
   // create state for holding returned google api data
-  const [searchedBooks, setSearchedBooks] = useState([]);
+  const [searchedAlbums, setSearchedAlbums] = useState([]);
   // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState("");
-  // create state to hold saved bookId values
-  const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
-  // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
-  // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
+  const [searchInput, setSearchInput] = useState('');
+  // create state to hold favorite albumId values
+  const [favoriteAlbumIds, setFavoriteAlbumIds] = useState(getfavoriteAlbumIds());
+  // set up useEffect hook to save `favoriteAlbumIds` list to localStorage on component unmount
   useEffect(() => {
-    return () => saveBookIds(savedBookIds);
-  });
+    return () => setFavoriteAlbumIds(favoriteAlbumIds);
+  }, [favoriteAlbumIds]);
 
-  // use the SAVE_BOOK mutation
-  const [saveBook] = useMutation(SAVE_BOOK);
+  // use the FAVORITE_ALBUM mutation
+  const [favoriteAlbum] = useMutation(FAVORITE_ALBUM);
 
-  // create method to search for books and set state on form submit
+  // create method to search for albums and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -43,34 +43,37 @@ const SearchBooks = () => {
 
     try {
       const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
+        `https://spotify23.p.rapidapi.com/search/?q=${searchInput}`
+        // `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
       );
 
       if (!response.ok) {
-        throw new Error("something went wrong!");
+        throw new Error('something went wrong!');
       }
 
       const { items } = await response.json();
 
-      const bookData = items.map((book) => ({
-        bookId: book.id,
-        authors: book.volumeInfo.authors || ["No author to display"],
-        title: book.volumeInfo.title,
-        description: book.volumeInfo.description,
-        image: book.volumeInfo.imageLinks?.thumbnail || "",
+      const albumData = items.map((album) => ({
+        albumId: album.id,
+        artists: album.volumeInfo.authors || ['No artist to display'],
+        title: album.volumeInfo.title,
+        description: album.volumeInfo.description,
+        image: album.volumeInfo.imageLinks?.thumbnail || '',
       }));
 
-      setSearchedBooks(bookData);
-      setSearchInput("");
+      setSearchedAlbums(albumData);
+      setSearchInput('');
     } catch (err) {
       console.error(err);
     }
   };
 
-  // create function to handle saving a book to our database
-  const handleSaveBook = async (bookId) => {
-    // find the book in `searchedBooks` state by the matching id
-    const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
+  // create function to handle saving a album to our database
+  const handleFavoriteAlbum = async (albumId) => {
+    // find the album in `searchedAlbums` state by the matching id
+    const albumToFavorite = searchedAlbums.find(
+      (album) => album.albumId === albumId
+    );
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -80,18 +83,18 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook({
+      const response = await favoriteAlbum({
         variables: {
-          input: bookToSave,
+          input: albumToFavorite,
         },
       });
 
       if (!response) {
-        throw new Error("something went wrong!");
+        throw new Error('something went wrong!');
       }
 
-      // if book successfully saves to user's account, save book id to state
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      // if album successfully saves to user's account, save album id to state
+      setFavoriteAlbumIds([...favoriteAlbumIds, albumToFavorite.albumId]);
     } catch (err) {
       console.error(err);
     }
@@ -99,75 +102,78 @@ const SearchBooks = () => {
 
   return (
     <>
-      <Jumbotron fluid className="text-light bg-dark">
-        <Container>
-          <h1>Search for Books!</h1>
-          <Form onSubmit={handleFormSubmit}>
-            <Form.Row>
-              <Col xs={12} md={8}>
-                <Form.Control
-                  name="searchInput"
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  type="text"
-                  size="lg"
-                  placeholder="Search for a book"
-                />
-              </Col>
-              <Col xs={12} md={4}>
-                <Button type="submit" variant="success" size="lg">
-                  Submit Search
-                </Button>
-              </Col>
-            </Form.Row>
-          </Form>
-        </Container>
-      </Jumbotron>
+      <Container>
+        <Typography variant="h4" align="center" gutterBottom>
+          Search for Albums!
+        </Typography>
+        <form onSubmit={handleFormSubmit}>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={12} md={8}>
+              <TextField
+                fullWidth
+                name="searchInput"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                label="Search for an album"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Button fullWidth type="submit" variant="contained" color="success">
+                Submit Search
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Container>
 
       <Container>
-        <h2>
-          {searchedBooks.length
-            ? `Viewing ${searchedBooks.length} results:`
-            : "Search for a book to begin"}
-        </h2>
-        <CardColumns>
-          {searchedBooks.map((book) => {
-            return (
-              <Card key={book.bookId} border="dark">
-                {book.image ? (
-                  <Card.Img
-                    src={book.image}
-                    alt={`The cover for ${book.title}`}
-                    variant="top"
+        <Typography variant="h5" align="center" gutterBottom>
+          {searchedAlbums.length
+            ? `Viewing ${searchedAlbums.length} results:`
+            : 'Search for an album to begin'}
+        </Typography>
+        <Grid container spacing={3}>
+          {searchedAlbums.map((album) => (
+            <Grid item xs={12} sm={6} md={4} key={album.albumId}>
+              <Card sx={{ display: 'flex' }}>
+                {album.image && (
+                  <CardMedia
+                    component="img"
+                    alt={`The cover for ${album.title}`}
+                    height="140"
+                    image={album.image}
                   />
-                ) : null}
-                <Card.Body>
-                  <Card.Title>{book.title}</Card.Title>
-                  <p className="small">Authors: {book.authors}</p>
-                  <Card.Text>{book.description}</Card.Text>
+                )}
+                <CardContent sx={{ flex: 1 }}>
+                  <Typography variant="h6">{album.title}</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Artists: {album.artists}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {album.description}
+                  </Typography>
                   {Auth.loggedIn() && (
                     <Button
-                      disabled={savedBookIds?.some(
-                        (savedBookId) => savedBookId === book.bookId
-                      )}
-                      className="btn-block btn-info"
-                      onClick={() => handleSaveBook(book.bookId)}
+                      fullWidth
+                      variant="contained"
+                      color="info"
+                      disabled={favoriteAlbumIds?.includes(album.albumId)}
+                      onClick={() => handleFavoriteAlbum(album.albumId)}
                     >
-                      {savedBookIds?.some(
-                        (savedBookId) => savedBookId === book.bookId
-                      )
-                        ? "This book has already been saved!"
-                        : "Save this Book!"}
+                      {favoriteAlbumIds?.includes(album.albumId)
+                        ? 'This album has already been chosen!'
+                        : 'Favorite this Album!'}
                     </Button>
                   )}
-                </Card.Body>
+                </CardContent>
               </Card>
-            );
-          })}
-        </CardColumns>
+            </Grid>
+          ))}
+        </Grid>
       </Container>
     </>
   );
 };
 
-export default SearchBooks;
+export default SearchAlbums;

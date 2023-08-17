@@ -1,5 +1,3 @@
-// TO EDIT
-
 import React from 'react';
 import {
   Container,
@@ -11,7 +9,7 @@ import {
   Grid,
 } from '@mui/material';
 import { GET_ME } from '../utils/queries';
-import { REMOVE_BOOK } from '../utils/mutations';
+import { REMOVE_ALBUM } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { removeAlbumId } from '../utils/localStorage';
 import { useQuery, useMutation } from '@apollo/client';
@@ -22,8 +20,8 @@ const FavoriteAlbums = () => {
   console.log(userData);
   const [removeAlbum] = useMutation(REMOVE_ALBUM);
 
-  // function that accepts the book's mongo _id value as param and deletes the book from the database
-  const handleDeleteAlbum = async (bookId) => {
+  // function that accepts the album's mongo _id value as param and deletes the album from the database
+  const handleDeleteAlbum = async (albumId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -33,12 +31,12 @@ const FavoriteAlbums = () => {
     try {
       const { user } = await removeAlbum({
         variables: {
-          bookId: bookId,
+          albumId: albumId,
         },
       });
 
       userData = user;
-      removeAlbumId(bookId);
+      removeAlbumId(albumId);
     } catch (err) {
       console.error(err);
     }
@@ -58,15 +56,15 @@ const FavoriteAlbums = () => {
       </Container>
       <Container>
         <Typography variant="h3" align="center" gutterBottom>
-          {userData.savedBooks?.length
-            ? `Viewing ${userData.savedBooks.length} saved ${
-                userData.savedBooks.length === 1 ? 'album' : 'albums'
+          {userData.favoriteAlbums?.length
+            ? `Viewing ${userData.favoriteAlbums.length} saved ${
+                userData.favoriteAlbums.length === 1 ? 'album' : 'albums'
               }:`
             : 'You have no saved albums!'}
         </Typography>
         <Grid container spacing={3}>
-          {userData.savedBooks?.map((album) => (
-            <Grid item xs={12} sm={6} md={4} key={album.bookId}>
+          {userData.favoriteAlbums?.map((album) => (
+            <Grid item xs={12} sm={6} md={4} key={album.albumId}>
               <Card sx={{ display: 'flex' }}>
                 {album.image && (
                   <CardMedia
@@ -88,7 +86,7 @@ const FavoriteAlbums = () => {
                     fullWidth
                     variant="contained"
                     color="error"
-                    onClick={() => handleDeleteAlbum(album.bookId)}
+                    onClick={() => handleDeleteAlbum(album.albumId)}
                   >
                     Delete this Album!
                   </Button>
