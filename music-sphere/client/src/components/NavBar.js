@@ -1,7 +1,3 @@
-// add mui/material 
-// might be change to a Header.js???
-// search for changing the colors
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -13,77 +9,85 @@ import {
   Tabs,
   Tab,
   Typography,
+  Box,
 } from '@mui/material';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
+import ProfilePage from './ProfilePage';
 
 import Auth from '../utils/auth';
 
 const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
+  const [selectedTab, setSelectedTab] = useState('login');
+
+  const handleTabChange = (event, newValue) => {
+    setSelectedTab(newValue);
+  };
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
-        <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
-            Google Books Search
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar' className='d-flex flex-row-reverse'>
-            <Nav className='ml-auto d-flex'>
-              <Nav.Link as={Link} to='/'>
-                Search For Books
-              </Nav.Link>
-              {/* if user is logged in show saved books and logout */}
+      <AppBar position='static' color='primary'>
+        <Container maxWidth='lg'>
+          <Toolbar>
+            <Typography variant='h6' component={Link} to='/' color='inherit'>
+              Music Sphere
+            </Typography>
+            <Box ml='auto'>
+              <Button color='inherit' component={Link} to='/'>
+                Search For Albums
+              </Button>
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to='/saved'>
-                    See Your Books
-                  </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                  <Button color='inherit' component={Link} to='/saved'>
+                    See Your Albums
+                  </Button>
+                  <Button color='inherit' onClick={Auth.logout}>
+                    Logout
+                  </Button>
                 </>
               ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+                <Button color='inherit' onClick={() => setShowModal(true)}>
+                  Login/Sign Up
+                </Button>
               )}
-            </Nav>
-          </Navbar.Collapse>
+            </Box>
+          </Toolbar>
         </Container>
-      </Navbar>
+      </AppBar>
       {/* set modal data up */}
-      <Modal
-        size='lg'
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        aria-labelledby='signup-modal'>
+      <Dialog fullWidth maxWidth='sm' open={showModal} onClose={() => setShowModal(false)}>
         {/* tab container to do either signup or login component */}
-        <Tab.Container defaultActiveKey='login'>
-          <Modal.Header closeButton>
-            <Modal.Title id='signup-modal'>
-              <Nav variant='pills'>
-                <Nav.Item>
-                  <Nav.Link eventKey='login'>Login</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
-                </Nav.Item>
-              </Nav>
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Tab.Content>
-              <Tab.Pane eventKey='login'>
-                <LoginForm handleModalClose={() => setShowModal(false)} />
-              </Tab.Pane>
-              <Tab.Pane eventKey='signup'>
-                <SignUpForm handleModalClose={() => setShowModal(false)} />
-              </Tab.Pane>
-            </Tab.Content>
-          </Modal.Body>
-        </Tab.Container>
-      </Modal>
+        <Tabs
+          value={selectedTab}
+          onChange={handleTabChange}
+          variant='fullWidth'
+          indicatorColor='primary'
+        >
+          <Tab label='Login' value='login' />
+          <Tab label='Sign Up' value='signup' />
+        </Tabs>
+        <Box p={2}>
+          <TabPanel value={selectedTab} index='login'>
+            <LoginForm handleModalClose={() => setShowModal(false)} />
+          </TabPanel>
+          <TabPanel value={selectedTab} index='signup'>
+            <SignUpForm handleModalClose={() => setShowModal(false)} />
+          </TabPanel>
+        </Box>
+      </Dialog>
     </>
+  );
+};
+
+const TabPanel = (props) => {
+  const { children, value, index } = props;
+
+  return (
+    <div role='tabpanel' hidden={value !== index}>
+      {value === index && <div>{children}</div>}
+    </div>
   );
 };
 
