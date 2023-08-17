@@ -1,4 +1,4 @@
-# mcramileux-final-project
+# MusicSphere: Album Fondness & Feedback
 23rd Challenge: Final Project - MERN Stack Single-Page Application
 
 ## User Story
@@ -18,6 +18,7 @@
 - JSON Web Tokens
 - Heroku
 - MongoDB
+- Fontawesome
   
 ## Installation and Usage
 
@@ -28,7 +29,8 @@ Github Repository:
 Heroku Deployment:
 
 ## References
-[Material UI](https://mui.com/material-ui/getting-started/installation/)
+[Unsplash.com](https://unsplash.com/photos/1oKxSKSOowE) for background photo
+[Material UI](https://mui.com/material-ui/getting-started/installation/) UI Component library 
 
 ## Contributions
 Contributions to this project won't be accepted as this is the reflection of the author's work hence the following questions and answers. Furthermore, forking or creating a pull request is acceptable.

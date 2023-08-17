@@ -1,54 +1,50 @@
-// TO EDIT; ADD MUI
+import React from 'react';
+import { makeStyles } from '@mui/styles';
+import { Grid, Link, Typography } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-// import React from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faGithub } from '@fortawesome/free-brands-svg-icons';
-// import './style.css';
+const useStyles = makeStyles((theme) => ({
+  footer: {
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.info.contrastText,
+    padding: theme.spacing(3),
+    textAlign: 'center',
+  },
+  socialIcons: {
+    marginTop: theme.spacing(2),
+    '& a': {
+      color: theme.palette.info.contrastText,
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
-// const Footer = () => {
-//   return (
-//     <footer className="footer mt-auto py-3 bg-dark text-white">
-//       <div className="container">
-//         <section className="social-icons-wrapper d-flex flex-column flex-md-row justify-content-center my-3">
-//           {/* JOCELYN'S SECTION */}
-//           <div className="d-flex flex-column align-items-center mx-md-2 transparent-bg">
-//             <a href="https://github.com/jjocelynn" className="icon jjocelynn" target="_blank" rel="noreferrer">
-//             <FontAwesomeIcon icon={faGithub} flip size="3x" style={{ color: 'green' }} />
-//             </a>
-//             <a href="https://github.com/jjocelynn" target="_blank" rel="noreferrer">
-//               <span className="d-inline-block mx-1 name">@jjocelynn</span>
-//             </a>
-//           </div>
-//           {/* DAVES SECTION */}
-//           <div className="d-flex flex-column align-items-center mx-md-2 transparent-bg">
-//             <a href="https://github.com/devarsh2395" className="icon devarsh2395" target="_blank" rel="noreferrer">
-//               <FontAwesomeIcon icon={faGithub} beat size="3x" style={{ color: 'purple' }} />
-//             </a>
-//             <a href="https://github.com/devarsh2395" target="_blank" rel="noreferrer">
-//               <span className="d-inline-block mx-1 name">@devarsh2395</span>
-//             </a>
-//           </div>
-//           {/* THOMAS' SECTION */}
-//           <div className="d-flex flex-column align-items-center mx-md-2 transparent-bg">
-//             <a href="https://github.com/ThomasCalle" className="icon ThomasCalle" target="_blank" rel="noreferrer">
-//               <FontAwesomeIcon icon={faGithub} bounce size="3x" style={{ color: 'orange' }} />
-//             </a>
-//             <a href="https://github.com/ThomasCalle" target="_blank" rel="noreferrer">
-//             <span className="d-inline-block mx-1 name">@ThomasCalle</span>
-//             </a>
-//           </div>
-//         </section>
-//         <section className="footer" id="footer">
-//           <section className="form-footer">
-//             <h5 className="text-center mb-2">Designed with ⏳ by UTOR PRJ3 T8</h5>
-//             <p className="text-center mb-0">
-//               <h6>&copy; {new Date().getFullYear()} All rights reserved.</h6>
-//             </p>
-//           </section>
-//         </section>
-//       </div>
-//     </footer>
-//   );
-// };
+export default function Footer() {
+  const classes = useStyles();
 
-// export default Footer;
+  return (
+    <footer className={classes.footer}>
+      <Grid container justifyContent="center">
+        <Grid item xs={12}>
+          <div className={classes.socialIcons}>
+            <Link href='https://github.com/mcramileux/' target='_blank' rel='noopener noreferrer'>
+              <FontAwesomeIcon icon={faGithub} size="lg" />
+            </Link>
+            <Link href='https://www.linkedin.com/in/mcramileux/' target='_blank' rel='noopener noreferrer'>
+              <FontAwesomeIcon icon={faLinkedin} size="lg" />
+            </Link>
+            <Link href='https://twitter.com/mcramileux' target='_blank' rel='noopener noreferrer'>
+              <FontAwesomeIcon icon={faTwitter} size="lg" />
+            </Link>
+          </div>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="body2">
+            &copy; 2023 mcramileux. All rights reserved.
+          </Typography>
+        </Grid>
+      </Grid>
+    </footer>
+  );
+}

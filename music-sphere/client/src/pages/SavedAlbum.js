@@ -1,4 +1,4 @@
-// TO EDIT
+// TO EDIT: MIGHT CHANGE TO FAVORITE ALBUMS DO A RESEARCH
 
 
 import React from "react";
