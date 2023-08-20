@@ -8,13 +8,15 @@ import {
   Typography,
   Grid,
 } from '@mui/material';
+import Auth from '../utils/auth';
+
 import { GET_ME } from '../utils/queries';
 import { REMOVE_ALBUM } from '../utils/mutations';
-import Auth from '../utils/auth';
+
 import { removeAlbumId } from '../utils/localStorage';
 import { useQuery, useMutation } from '@apollo/client';
 
-const FavoriteAlbums = () => {
+const SavedAlbums = () => {
   const { loading, data } = useQuery(GET_ME);
   let userData = data?.me || {};
   console.log(userData);
@@ -56,14 +58,14 @@ const FavoriteAlbums = () => {
       </Container>
       <Container>
         <Typography variant="h3" align="center" gutterBottom>
-          {userData.favoriteAlbums?.length
-            ? `Viewing ${userData.favoriteAlbums.length} saved ${
-                userData.favoriteAlbums.length === 1 ? 'album' : 'albums'
+          {userData.savedAlbums?.length
+            ? `Viewing ${userData.savedAlbums.length} saved ${
+                userData.savedAlbums.length === 1 ? 'album' : 'albums'
               }:`
             : 'You have no saved albums!'}
         </Typography>
         <Grid container spacing={3}>
-          {userData.favoriteAlbums?.map((album) => (
+          {userData.savedAlbums?.map((album) => (
             <Grid item xs={12} sm={6} md={4} key={album.albumId}>
               <Card sx={{ display: 'flex' }}>
                 {album.image && (
@@ -100,4 +102,4 @@ const FavoriteAlbums = () => {
   );
 };
 
-export default FavoriteAlbums;
+export default SavedAlbums;

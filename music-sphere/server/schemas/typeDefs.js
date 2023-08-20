@@ -1,6 +1,5 @@
-const { gql } = require('apollo-server-express');
-
 // TO FIX 
+const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
 type Query {

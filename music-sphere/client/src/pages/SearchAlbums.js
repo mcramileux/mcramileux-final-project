@@ -11,12 +11,12 @@ import {
 } from '@mui/material';
 
 import Auth from '../utils/auth';
-import { searchSpotifyAlbums } from '../utils/API';
-import { faveAlbumIds, getfavoriteAlbumIds } from '../utils/localStorage';
+// import { searchSpotifyAlbums } from '../utils/API';
+// import { faveAlbumIds, getfavoriteAlbumIds } from '../utils/localStorage';
 
 // import Apollo hook and mutation
 import { useMutation } from '@apollo/client';
-import { FAVE_ALBUM } from '../utils/mutations';
+import { SAVE_ALBUM } from '../utils/mutations';
 
 const SearchAlbums = () => {
   // create state for holding returned google api data
@@ -24,14 +24,15 @@ const SearchAlbums = () => {
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
   // create state to hold favorite albumId values
-  const [favoriteAlbumIds, setFavoriteAlbumIds] = useState(getfavoriteAlbumIds());
+  const [savedAlbumIds, setSavedAlbumIds] = useState(getSavedAlbumIds())
   // set up useEffect hook to save `favoriteAlbumIds` list to localStorage on component unmount
+  const [saveAlbum] = useMutation(SAVE_ALBUM);
   useEffect(() => {
-    return () => setFavoriteAlbumIds(favoriteAlbumIds);
-  }, [favoriteAlbumIds]);
+    return () => saveAlbumIds(savedAlbumIds);
+  });
 
   // use the FAVORITE_ALBUM mutation
-  const [favoriteAlbum] = useMutation(FAVORITE_ALBUM);
+  // const [favoriteAlbum] = useMutation(FAVORITE_ALBUM);
 
   // create method to search for albums and set state on form submit
   const handleFormSubmit = async (event) => {
@@ -69,11 +70,9 @@ const SearchAlbums = () => {
   };
 
   // create function to handle saving a album to our database
-  const handleFavoriteAlbum = async (albumId) => {
+  const handleSaveAlbum = async (albumId) => {
     // find the album in `searchedAlbums` state by the matching id
-    const albumToFavorite = searchedAlbums.find(
-      (album) => album.albumId === albumId
-    );
+    const albumToSave = searchedAlbums.find((album) => album.albumId === albumId);
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -83,22 +82,18 @@ const SearchAlbums = () => {
     }
 
     try {
-      const response = await favoriteAlbum({
-        variables: {
-          input: albumToFavorite,
-        },
+      const { data } = await saveAlbum({
+        variables: {albumData: albumToSave
+        }
       });
 
-      if (!response) {
-        throw new Error('something went wrong!');
-      }
-
       // if album successfully saves to user's account, save album id to state
-      setFavoriteAlbumIds([...favoriteAlbumIds, albumToFavorite.albumId]);
+      setSavedAlbumIds([...savedAlbumIds, albumToSave.albumId]);
     } catch (err) {
       console.error(err);
     }
   };
+
 
   return (
     <>

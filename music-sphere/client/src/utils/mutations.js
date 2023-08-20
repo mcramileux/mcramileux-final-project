@@ -26,7 +26,7 @@ export const ADD_USER = gql`
   }
 `;
 
-export const FAVORITE_ALBUM = gql`
+export const FAVE_ALBUM = gql`
   mutation saveBook($bookData: BookInput!) {
     saveBook(bookData: $bookData) {
       _id
@@ -58,6 +58,18 @@ export const REMOVE_ALBUM = gql`
         title
         image
         link
+      }
+    }
+  }
+`;
+export const ADD_COMMENT = gql`
+  mutation addComment($thoughtId: ID!, $commentText: String!) {
+    addComment(thoughtId: $thoughtId, commentText: $commentText) {
+      _id
+      comments {
+        _id
+        commentText
+        createdAt
       }
     }
   }

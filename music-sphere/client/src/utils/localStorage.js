@@ -1,31 +1,32 @@
-export const getFavoriteAlbumIds = () => {
-    const favoriteAlbumIds = localStorage.getItem('favorite_albums')
-      ? JSON.parse(localStorage.getItem('favorite_albums'))
-      : [];
+//MIGHT DELETE
+// export const getFaveAlbumIds = () => {
+//     const faveAlbumIds = localStorage.getItem('fave_albums')
+//       ? JSON.parse(localStorage.getItem('fave_albums'))
+//       : [];
   
-    return favoriteAlbumIds;
-  };
+//     return faveAlbumIds;
+//   };
   
-  export const FavoriteAlbumIds = (albumIdArr) => {
-    if (albumIdArr.length) {
-      localStorage.setItem('favorite_albums', JSON.stringify(albumIdArr));
-    } else {
-      localStorage.removeItem('favorite_albums');
-    }
-  };
+//   export const FavoriteAlbumIds = (albumIdArr) => {
+//     if (albumIdArr.length) {
+//       localStorage.setItem('fave_albums', JSON.stringify(albumIdArr));
+//     } else {
+//       localStorage.removeItem('fave_albums');
+//     }
+//   };
   
-  export const removeAlbumId = (albumId) => {
-    const favoriteAlbumIds = localStorage.getItem('favorite_albums')
-      ? JSON.parse(localStorage.getItem('favorite_albums'))
-      : null;
+//   export const removeAlbumId = (albumId) => {
+//     const faveAlbumIds = localStorage.getItem('fave_albums')
+//       ? JSON.parse(localStorage.getItem('fave_albums'))
+//       : null;
   
-    if (!favoriteAlbumIds) {
-      return false;
-    }
+//     if (!faveAlbumIds) {
+//       return false;
+//     }
   
-    const updatedFavoriteAlbumIds = FavoriteAlbumIds?.filter((FavoriteAlbumId) => FavoriteAlbumIds !== albumId);
-    localStorage.setItem('favorite_albums', JSON.stringify(updatedFavoriteAlbumIds));
+//     const updatedFaveAlbumIds = FaveAlbumIds?.filter((FaveAlbumId) => FaveAlbumIds !== albumId);
+//     localStorage.setItem('fave_albums', JSON.stringify(updatedFaveAlbumIds));
   
-    return true;
-  };
+//     return true;
+//   };
   
