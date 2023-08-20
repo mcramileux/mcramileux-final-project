@@ -1,3 +1,6 @@
-// const User = require('./User');
+const User = require('../models/User');
+const Album = require('../models/Album');
+const Comment = require('../models/Comment');
 
-// module.exports = { User };
+// export the models
+module.exports = { User, Album, Comment };

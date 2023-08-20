@@ -1,46 +1,48 @@
-// const { gql } = require('apollo-server-express');
+const { gql } = require('apollo-server-express');
 
-// const typeDefs = gql`
-// type Query {
-//     me: User
-//   }
+// TO FIX 
 
-// type Mutation {
-//     login(email: String!, password: String!): Auth
-//     addUser(username: String!, email: String!, password: String!): Auth
-//     faveAlbum(albumData: AlbumInput!): User
-//     removeAlbum(albumId: String!): User
-// }
+const typeDefs = gql`
+type Query {
+    me: User
+  }
 
-// input AlbumInput{
-//     albumId: String!
-//     authors: [String]
-//     description: String
-//     title: String
-//     image: String
-//     link: String
-// }
-// type User {
-//     _id: ID!
-//     username: String!
-//     email: String!
-//     albumCount: Int
-//     savedAlbums: [Album]
-// }
+type Mutation {
+    login(email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
+    faveAlbum(albumData: AlbumInput!): User
+    removeAlbum(albumId: String!): User
+}
 
-// type Album {
-//     albumId: String!
-//     authors: [String]
-//     description: String
-//     title: String!
-//     image: String
-//     link: String
-// }
+input AlbumInput{
+    albumId: String!
+    authors: [String]
+    description: String
+    title: String
+    image: String
+    link: String
+}
+type User {
+    _id: ID!
+    username: String!
+    email: String!
+    albumCount: Int
+    savedAlbums: [Album]
+}
 
-// type Auth {
-//     token: ID!
-//     user: User
-// }
-// `;
+type Album {
+    albumId: String!
+    authors: [String]
+    description: String
+    title: String!
+    image: String
+    link: String
+}
 
-// module.exports = typeDefs;
+type Auth {
+    token: ID!
+    user: User
+}
+`;
+
+module.exports = typeDefs;

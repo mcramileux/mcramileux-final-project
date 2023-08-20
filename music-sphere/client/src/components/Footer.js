@@ -41,7 +41,7 @@ export default function Footer() {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body2">
-            &copy; 2023 mcramileux. All rights reserved.
+            &copy; 2023 mcramileux - MusicSphere. All rights reserved.
           </Typography>
         </Grid>
       </Grid>
