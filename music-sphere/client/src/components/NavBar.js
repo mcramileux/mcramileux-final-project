@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import SignUpForm from '../components/SignupForm';
 import LoginForm from '../components/LoginForm';
-import UserPage from '../components/UserPage';
+// import UserPage from '../components/UserPage';
 
 import Auth from '../utils/auth';
 

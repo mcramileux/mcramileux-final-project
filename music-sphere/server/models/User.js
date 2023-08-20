@@ -29,15 +29,7 @@ const userSchema = new Schema(
         ref: 'Album',
       }
     ]
-    // // set favoriteAlbums to be an array of data that adheres to the albumSchema
-    // favoriteAlbums: [albumSchema],
   },
-  // set this to use virtual below
-  // {
-  //   toJSON: {
-  //     virtuals: true,
-  //   },
-  // }
 );
 
 // hash user password
@@ -54,11 +46,6 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
-
-// // when we query a user, we'll also get another field called `albumCount` with the number of favorite albums we have
-// userSchema.virtual('albumCount').get(function () {
-//   return this.favoriteAlbums.length;
-// });
 
 const User = model('User', userSchema);
 

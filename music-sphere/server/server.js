@@ -3,11 +3,11 @@ const path = require('path');
 
 // Implement the Apollo Server and apply it to the Express server as middleware
 const { ApolloServer } = require('apollo-server-express');
-const { authMiddleware } = require('./server/utils/auth');
+const { authMiddleware } = require('./utils/auth');
 
 // import typeDefs and revolvers
-const db = require('./server/config/connection');
-const { typeDefs, resolvers } = require('./server/schemas');
+const db = require('./config/connection');
+const { typeDefs, resolvers } = require('./schemas');
 
 const PORT = process.env.PORT || 3001;
 const app = express();

@@ -26,14 +26,14 @@ export const ADD_USER = gql`
   }
 `;
 
-export const FAVE_ALBUM = gql`
-  mutation saveBook($bookData: BookInput!) {
-    saveBook(bookData: $bookData) {
+export const SAVE_ALBUM = gql`
+  mutation saveAlbum($albumData: AlbumInput!) {
+    saveAlbum(albumData: $albumData) {
       _id
       username
       email
-      savedBooks {
-        bookId
+      savedAlbums {
+        albumId
         authors
         image
         description
@@ -45,14 +45,14 @@ export const FAVE_ALBUM = gql`
 `;
 
 export const REMOVE_ALBUM = gql`
-  mutation removeBook($bookId: String!) {
-    removeBook(bookId: $bookId) {
+  mutation removeAlbum($albumId: String!) {
+    removeAlbum(albumId: $albumId) {
       _id
       username
       email
-      bookCount
-      savedBook {
-        bookId
+      albumCount
+      savedAlbum {
+        albumId
         authors
         description
         title
@@ -64,13 +64,28 @@ export const REMOVE_ALBUM = gql`
 `;
 export const ADD_COMMENT = gql`
   mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
+    addComment(commentText: $commentText) {
       _id
       comments {
         _id
         commentText
-        createdAt
       }
     }
+  }
+`;
+export const UPDATE_COMMENT = gql `
+mutation UPDATE_COMMENT($updateEventId: ID!, $title: String, $description: String, $cost: Float, $location: String, $date: String) {
+  updateComment(id: $updateCommentId, title: $title) {
+    id
+    user {
+      id
+      username
+    }
+  }
+}`;
+
+export const DELETE_COMMENT = gql`
+  mutation DELETE_COMMENT($deleteCommentId: ID!) {
+    deleteComment(id: $deleteCommentId)
   }
 `;

@@ -8,10 +8,10 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// import SearchAlbums from '../src/pages/SearchAlbums';
-import FavoriteAlbums from './pages/SavedAlbums';
+import SearchAlbums from '../src/pages/SearchAlbums';
+import SavedAlbums from '../src/pages/SavedAlbums';
 // import UserProfile from '..src/pages/UserProfile';
-// import Navbar from './components/Navbar';
+import Navbar from '../src/components/NavBar';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -37,54 +37,30 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-// function App() {
-//   return (
-//     <ApolloProvider client={client}>
-//       <Router>
-//         <>
-//           {/* <Navbar />
-//             <Routes>
-//               <Route 
-//                 path='/' 
-//                 element={<SearchAlbums />} 
-//               /> */}
-//               <Route 
-//                 path='/favorite' 
-//                 element={<FavoriteAlbums />} 
-//               />
-//               <Route 
-//                 path='*'
-//                 element={<h1 className='display-2'>Wrong page!</h1>}
-//               />
-//             {/* </Routes>
-//         </>
-//       </Router> */}
-//     {/* </ApolloProvider> */}
-//   );
-// }
+function App() {
+  return (
+    <ApolloProvider client={client}>
+      <Router>
+        <>
+          <Navbar />
+            <Routes>
+              <Route 
+                path='/' 
+                element={<SearchAlbums />} 
+              />
+              <Route 
+                path='/saved' 
+                element={<SavedAlbums />} 
+              />
+              <Route 
+                path='*'
+                element={<h1 className='display-2'>Wrong page!</h1>}
+              />
+            </Routes>
+        </>
+      </Router>
+    </ApolloProvider>
+  );
+}
 
-{/* // import logo from './logo.svg';
-// import './App.css';
-
-// function App() { */}
-{/* //   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a */}
-{/* //           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// } */}
-
-// export default App;
+export default App;

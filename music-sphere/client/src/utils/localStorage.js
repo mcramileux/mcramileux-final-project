@@ -1,32 +1,30 @@
-//MIGHT DELETE
-// export const getFaveAlbumIds = () => {
-//     const faveAlbumIds = localStorage.getItem('fave_albums')
-//       ? JSON.parse(localStorage.getItem('fave_albums'))
-//       : [];
+export const getSavedAlbumIds = () => {
+    const savedAlbumIds = localStorage.getItem('saved_albums')
+      ? JSON.parse(localStorage.getItem('saved_albums'))
+      : [];
   
-//     return faveAlbumIds;
-//   };
+    return savedAlbumIds;
+  };
   
-//   export const FavoriteAlbumIds = (albumIdArr) => {
-//     if (albumIdArr.length) {
-//       localStorage.setItem('fave_albums', JSON.stringify(albumIdArr));
-//     } else {
-//       localStorage.removeItem('fave_albums');
-//     }
-//   };
+  export const saveAlbumIds = (albumIdArr) => {
+    if (albumIdArr.length) {
+      localStorage.setItem('saved_albums', JSON.stringify(albumIdArr));
+    } else {
+      localStorage.removeItem('saved_albums');
+    }
+  };
   
-//   export const removeAlbumId = (albumId) => {
-//     const faveAlbumIds = localStorage.getItem('fave_albums')
-//       ? JSON.parse(localStorage.getItem('fave_albums'))
-//       : null;
+  export const removeAlbumId = (albumId) => {
+    const savedAlbumIds = localStorage.getItem('saved_albums')
+      ? JSON.parse(localStorage.getItem('saved_albums'))
+      : null;
   
-//     if (!faveAlbumIds) {
-//       return false;
-//     }
+    if (!savedAlbumIds) {
+      return false;
+    }
   
-//     const updatedFaveAlbumIds = FaveAlbumIds?.filter((FaveAlbumId) => FaveAlbumIds !== albumId);
-//     localStorage.setItem('fave_albums', JSON.stringify(updatedFaveAlbumIds));
+    const updatedSavedAlbumIds = savedAlbumIds?.filter((savedAlbumId) => savedAlbumId !== albumId);
+    localStorage.setItem('saved_albums', JSON.stringify(updatedSavedAlbumIds));
   
-//     return true;
-//   };
-  
+    return true;
+  };

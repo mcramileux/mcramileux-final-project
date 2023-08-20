@@ -9,24 +9,24 @@ import {
   CardMedia,
   Typography,
 } from '@mui/material';
-
 import Auth from '../utils/auth';
-// import { searchSpotifyAlbums } from '../utils/API';
-// import { faveAlbumIds, getfavoriteAlbumIds } from '../utils/localStorage';
 
 // import Apollo hook and mutation
 import { useMutation } from '@apollo/client';
 import { SAVE_ALBUM } from '../utils/mutations';
+import { saveAlbumIds, getSavedAlbumIds } from '../utils/localStorage';
 
 const SearchAlbums = () => {
   // create state for holding returned google api data
   const [searchedAlbums, setSearchedAlbums] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
+
   // create state to hold favorite albumId values
   const [savedAlbumIds, setSavedAlbumIds] = useState(getSavedAlbumIds())
   // set up useEffect hook to save `favoriteAlbumIds` list to localStorage on component unmount
   const [saveAlbum] = useMutation(SAVE_ALBUM);
+
   useEffect(() => {
     return () => saveAlbumIds(savedAlbumIds);
   });
@@ -153,10 +153,10 @@ const SearchAlbums = () => {
                       fullWidth
                       variant="contained"
                       color="info"
-                      disabled={favoriteAlbumIds?.includes(album.albumId)}
-                      onClick={() => handleFavoriteAlbum(album.albumId)}
+                      disabled={savedAlbumIds?.includes(album.albumId)}
+                      onClick={() => handleSaveAlbum(album.albumId)}
                     >
-                      {favoriteAlbumIds?.includes(album.albumId)
+                      {savedAlbumIds?.includes(album.albumId)
                         ? 'This album has already been chosen!'
                         : 'Favorite this Album!'}
                     </Button>
