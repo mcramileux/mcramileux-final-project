@@ -27,9 +27,9 @@ const SearchAlbums = () => {
   // set up useEffect hook to save `favoriteAlbumIds` list to localStorage on component unmount
   const [saveAlbum] = useMutation(SAVE_ALBUM);
 
-  useEffect(() => {
-    return () => saveAlbumIds(savedAlbumIds);
-  });
+  // useEffect(() => {
+  //   return () => saveAlbumIds(savedAlbumIds);
+  // }, []);
 
   // use the FAVORITE_ALBUM mutation
   // const [favoriteAlbum] = useMutation(FAVORITE_ALBUM);
@@ -83,7 +83,8 @@ const SearchAlbums = () => {
 
     try {
       const { data } = await saveAlbum({
-        variables: {albumData: albumToSave
+        variables: {
+          albumData: albumToSave
         }
       });
 

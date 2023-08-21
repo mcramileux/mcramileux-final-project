@@ -74,7 +74,7 @@ export const ADD_COMMENT = gql`
   }
 `;
 export const UPDATE_COMMENT = gql `
-mutation UPDATE_COMMENT($updateEventId: ID!, $title: String, $description: String, $cost: Float, $location: String, $date: String) {
+mutation UPDATE_COMMENT($updateCommentId: ID!, $title: String, $description: String, $cost: Float, $location: String, $date: String) {
   updateComment(id: $updateCommentId, title: $title) {
     id
     user {
