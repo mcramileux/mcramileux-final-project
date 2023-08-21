@@ -6,7 +6,7 @@ import {
   TextareaAutosize,
   Button,
   Alert,
-} from '@mui/material';
+} from '@material-ui/core';
 
 export default function Contact() {
   const [fullName, setFullName] = useState('');

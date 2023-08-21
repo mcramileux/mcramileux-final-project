@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Alert } from '@mui/material';
+import { TextField, Button, Alert } from '@material-ui/core';
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';

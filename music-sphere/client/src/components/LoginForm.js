@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Alert } from '@mui/material';
+import { TextField, Button, Alert } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
@@ -43,7 +43,7 @@ const LoginForm = () => {
   return (
     <>
       <form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Alert onClose={() => setShowAlert(false)} open={showAlert} severity='error'>
+        <Alert onClose={() => setShowAlert(false)} isOpen={showAlert} severity='error' variant='filled'>
           Something went wrong with your login credentials!
         </Alert>
         <TextField

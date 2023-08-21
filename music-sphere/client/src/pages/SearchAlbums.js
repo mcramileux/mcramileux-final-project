@@ -8,7 +8,7 @@ import {
   CardContent,
   CardMedia,
   Typography,
-} from '@mui/material';
+} from '@material-ui/core';
 import Auth from '../utils/auth';
 
 // import Apollo hook and mutation

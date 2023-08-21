@@ -7,7 +7,7 @@ import {
   Button,
   Typography,
   Grid,
-} from '@mui/material';
+} from '@material-ui/core';
 import Auth from '../utils/auth';
 
 import { GET_ME } from '../utils/queries';
