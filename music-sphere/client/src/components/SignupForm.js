@@ -52,12 +52,12 @@ const SignupForm = () => {
   return (
     <>
       <form noValidate onSubmit={handleFormSubmit}>
-        <Alert
+        {/* <Alert
           severity='error'
           onClose={() => setShowAlert(false)}
           style={{ display: showAlert ? 'block' : 'none' }}>
           Something went wrong with your signup!
-        </Alert>
+        </Alert> */}
 
         <TextField
           id='username'
